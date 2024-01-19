@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bebe Vincze</title>
+  <style>
+    /* Customize the styling as per your preferences */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: linear-gradient(to right, #00bfff, #ff69b4)
+    }
+
+    h1 {
+      color: #ff69b4;
+    }
+
+    .countdown {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .reveal-button {
+      padding: 1rem 2rem;
+      background-image: linear-gradient(to right, #00bfff, #ff69b4);
+      color: #fff;
+      font-size: 1.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hidden-section {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Noul membru al familiei Vincze este...</h1>
+  <div class="countdown" id="countdown"></div>
+  <button class="reveal-button" id="revealBtn">Reveal the Gender</button>
+  <div class="hidden-section" id="hiddenSection">
+    <h2>Este fetita!</h2>
+    <!-- Add additional content or elements you want to reveal -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/confetti-js@1.0.2/dist/index.min.js"></script>
+  <script>
+    // Countdown timer
+    const countdownElement = document.getElementById('countdown');
+    const revealButton = document.getElementById('revealBtn');
+    const hiddenSection = document.getElementById('hiddenSection');
+
+    const countdownDate = new Date('2023-12-25').getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML = ` ${seconds}s`;
+
+      if (distance < 0) {
+        clearInterval(countdown);
+        countdownElement.innerHTML = 'Time\'s Up!';
+      }
+    };
+
+    const revealGender = () => {
+      revealButton.style.display = 'none';
+      hiddenSection.style.display = 'block';
+      startConfetti();
+    };
+
+    const countdown = setInterval(updateCountdown, 1000);
+    revealButton.addEventListener('click', revealGender);
+
+    // Confetti effect
+    function startConfetti() {
+      const confettiSettings = { target: 'confetti' };
+      const confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
+    }
+  </script>
+</body>
+</html>
